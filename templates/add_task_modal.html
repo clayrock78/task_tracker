@@ -1,0 +1,75 @@
+<!-- Add Task Modal -->
+<div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTaskModalLabel">Add New Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addTaskForm" method="POST" action="/postevent">
+                    <div class="form-group">
+                        <label for="classSelect">Select Class:</label>
+                        <input type="hidden" name="class_name">
+                        {% if classes %}
+                            <select id="classSelect" name="class_name" class="form-control">
+                                {% for class in classes %}
+                                    <option value="{{ class }}">{{ class }}</option>
+                                {% endfor %}
+                                <option value="New">New</option>
+                            </select>
+                        {% else %}
+                            <select id="classSelect" name="class_name" class="form-control">
+                                <option value="">No classes available</option>
+                                <option value="New">New</option>
+                            </select>
+                        {% endif %}
+                        
+                        <script>
+                            document.getElementById("classSelect").addEventListener("change", function () {
+                                if (this.value === "New") {
+                                    const custom = prompt("Enter a custom class name:");
+                                    if (custom) {
+                                        const newOption = new Option(custom, custom);
+                                        this.add(newOption, this.options[this.options.length - 1]);
+                                        this.value = custom;
+                                        document.querySelector('input[name="class_name"]').value = custom;
+                                    } else {
+                                        this.value = "";
+                                    }
+                                } else {
+                                    document.querySelector('input[name="class_name"]').value = this.value;
+                                }
+                            });
+                        </script>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <input type="text" id="description" name="description" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="end_datetime">Select Date and Time:</label>
+                        <input id="dt" name="end_datetime">
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+                        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+                        <script>
+                            flatpickr("#dt", {
+                                enableTime: true,
+                                dateFormat: "M d Y H:i",
+                                defaultHour:23,
+                                defaultMinute:59,
+                                time_24hr: true
+                            });
+                        </script>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" form="addTaskForm" class="btn btn-primary">Create Task</button>
+            </div>
+        </div>
+    </div>
+</div>

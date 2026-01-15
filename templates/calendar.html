@@ -1,0 +1,21 @@
+<p> Enter date: </p>
+
+
+<form method="POST" action="/postcalendar">
+    
+    <input id="dt" name="eventDate">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+    flatpickr("#dt", {
+    enableTime: true,
+    dateFormat: "M d Y H:i",
+    time_24hr: true
+    });
+    </script>
+    </input>
+  <button type="submit">Submit Date</button>
+</form>
+
+
