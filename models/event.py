@@ -21,7 +21,7 @@ class Event(db.Model) :
     class_name = db.Column(db.String(100), nullable=False)
     end_datetime = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    # notes = db.Column(db.Text, nullable=True)
+    notes = db.Column(db.Text, nullable=True)
     status = db.Column(db.String(50), nullable=False, default="not started")
 
     def __init__(self, class_name, end_datetime, description, status="not started"):
